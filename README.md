@@ -6,5 +6,10 @@ README
 4. `python runserver.py`
 5. Visit http://localhost:3333
 
+Use only following endpoints:
+=====
+1. /
+2. /search/[term]
+3. /search/[term]/[maximum]
 
 [application]: http://www.flickr.com/services/apps/create/ 
