@@ -1,0 +1,9 @@
+settings.py
+*.py[cox]
+install/
+*.egg-info
+.coverage
+docs/_build
+build/
+dist/
+

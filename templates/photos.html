@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% if not photos %}
+        <h2> No Search result found :-( </h2>
+    {% else %}
+        <h2></center> Photos of {{ term }}</center></h2>
+        {% for photo in photos[:maximum] %}
+            <div class="photo">
+                <h3>Title: {{ photo.title }} </h3><br/>
+                <h3>{{ "Description: %s " % photo.description if photo.description }} </h3><br/>
+                <img src="{{ photo.getPhotoFile() }}">
+                <hr>
+            </div>
+        {% endfor %}
+    {% endif %} 
+{% endblock %}
