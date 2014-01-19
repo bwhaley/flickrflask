@@ -99,10 +99,6 @@ def photos(user):
 
 @app.route('/showqueries')
 def show():
-    db_host='flickrdemo.clabneqazgln.us-east-1.rds.amazonaws.com'
-    db_name='flickrdemo'
-    db_password='flickrdemo'
-    db_username='flickr'
     engine = create_engine("mysql://{user}:{password}@{host}:3306/{name}".format(
         user=db_username,
         password=db_password,
