@@ -6,7 +6,7 @@ RUN apt-get install -y -q software-properties-common python-software-properties
 RUN apt-get -y update
 
 # install needed packages
-RUN apt-get install -y -q supervisor python-dev libxml2-dev libxslt-dev python-setuptools rsyslog libmysqlclient-dev
+RUN apt-get install -y -q supervisor python-dev libxml2-dev libxslt-dev python-setuptools rsyslog libmysqlclient-dev 
 RUN easy_install pip
 RUN easy_install -U distribute
 

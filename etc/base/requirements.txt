@@ -6,7 +6,6 @@ SQLAlchemy==0.9.1
 Werkzeug==0.9.4
 argparse==1.2.1
 boto==2.23.0
-distribute==0.6.24
 flickr-api==0.4
 itsdangerous==0.23
 oauth==1.0.1
