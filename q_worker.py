@@ -9,6 +9,7 @@ import time
 import json
 import boto.sqs
 from boto.sqs.message import Message
+from boto.sqs.queue import Queue
 from sqlalchemy import *
 
 region = 'us-east-1'
@@ -25,7 +26,7 @@ conn = boto.sqs.connect_to_region(
     region,
     aws_access_key_id=aws_access_key_id,
     aws_secret_access_key=aws_secret_access_key)
-q = conn.get_queue(queue_name)
+q = Queue(conn, queue_url)
 
 engine = create_engine("mysql://{user}:{password}@{host}:3306/{name}".format(
     user=db_username,
