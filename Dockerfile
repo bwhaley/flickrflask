@@ -8,6 +8,7 @@ RUN pip install uwsgi
 
 # copy the supervisor config
 ADD ./etc/supervisor/flickr.conf /etc/supervisor/conf.d/flickr.conf
+ADD ./etc/nginx/flickr.conf /etc/nginx/sites-enabled/flickr.conf
 
 # Copy over the source
 ADD . /flickrdemo
