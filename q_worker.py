@@ -15,7 +15,7 @@ from sqlalchemy import *
 region = 'us-east-1'
 aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID") or None
 aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY") or None
-queue_name = os.getenv("QUEUE_NAME")
+queue_url = os.getenv("QUEUE_URL")
 
 db_host = db_name = os.getenv("DATABASE_HOST")
 db_username = db_name = os.getenv("DATABASE_USERNAME")
