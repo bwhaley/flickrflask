@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% if not queries %}
+        <h2> No Search result found :-( </h2>
+    {% else %}
+        <h2><center> Photo queries</center></h2>
+        <hr>
+        {% for query in queries %}
+            <div class="photo">
+                <h4>Query: {{ query['query'] }}, time: {{  query['created_at'] }}</h4>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

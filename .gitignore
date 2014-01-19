@@ -6,4 +6,4 @@ install/
 docs/_build
 build/
 dist/
-
+.idea*

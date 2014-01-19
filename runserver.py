@@ -4,20 +4,29 @@
 import os
 import sys
 import re
+import json
 from flask import Flask, render_template, url_for, request, redirect, session, flash
 from flickr_api.auth import AuthHandler
 from flickr_api import FlickrError
 import flickr_api
+import boto.sqs
+from boto.sqs.queue import Queue
+from boto.sqs.message import Message
+from sqlalchemy import *
 
+aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID") or None
+aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY") or None
+queue_url = os.getenv("QUEUE_URL") or None
+flickr_key = os.getenv("FLICKR_KEY") or None
+flickr_secret = os.getenv("FLICKR_SECRET") or None
+db_host = db_name = os.getenv("DATABASE_HOST")
+db_username = db_name = os.getenv("DATABASE_USERNAME")
+db_password = db_name = os.getenv("DATABASE_PASSWORD")
+db_name = os.getenv("DATABASE_NAME")
+
+secrets = {'api_key': flickr_key, 'api_secret': flickr_secret}
 
 app = Flask(__name__)
-
-if os.path.exists('settings.py'):
-    app.config.from_pyfile('settings.py')
-    secrets = {'api_key': app.config.get('FLICKR_KEY'), 'api_secret': app.config.get('FLICKR_SECRET')}
-else:
-    print("copy settings-sample.py to settings.py and run again")
-    sys.exit()
 
 
 @app.route('/')
@@ -31,15 +40,13 @@ def login():
     callback url else redirected to index page
     """
     try:
-        auth = AuthHandler(key=app.config['FLICKR_KEY'], secret=app.config['FLICKR_SECRET'],
+        auth = AuthHandler(key=flickr_key, secret=flickr_secret,
         callback=url_for('flickr_callback', _external=True))
         return redirect(auth.get_authorization_url('read'))
     except FlickrError, f:
         # Flash failed login & redirect to index page
         flash(u'Failed to authenticate user with flickr', 'error')
         return redirect(url_for('index'))
-
-
 
 @app.route('/login/callback')
 def flickr_callback():
@@ -56,6 +63,7 @@ def flickr_callback():
 @app.route('/search/<term>')
 def search(term):
     flickr_api.set_keys(**secrets)
+    write_to_sqs(term)
     photos = flickr_api.Photo.search(tags=term, sort='date-posted-desc', per_page=10)
     #raise
     return render_template('photos.html', photos=photos, maximum=10, term=term)
@@ -68,6 +76,7 @@ def search_max(term, maximum):
     except:
         flash("maximum must be integer, 10 results will be rendered", "error")
     flickr_api.set_keys(**secrets)
+    write_to_sqs(term)
     photos = flickr_api.Photo.search(tags=term, sort='date-posted-desc', per_page=maximum)
     return render_template('photos.html', photos=photos, maximum=maximum, term=term)
 
@@ -88,4 +97,38 @@ def photos(user):
         return redirect(url_for('login'))
     raise
 
-app.run('0.0.0.0', debug=True, port=app.config['PORT']) # Dev env
+@app.route('/showqueries')
+def show():
+    db_host='flickrdemo.clabneqazgln.us-east-1.rds.amazonaws.com'
+    db_name='flickrdemo'
+    db_password='flickrdemo'
+    db_username='flickr'
+    engine = create_engine("mysql://{user}:{password}@{host}:3306/{name}".format(
+        user=db_username,
+        password=db_password,
+        host=db_host,
+        name=db_name,
+        ))
+
+    metadata = MetaData()
+    metadata.bind = engine
+    rs = engine.execute("select * from queries")
+    #for row in rs:
+    #    print "Query: %s" % row['query']
+
+    return render_template('queries.html', queries=rs)
+
+def write_to_sqs(query):
+    m = Message()
+    m.set_body(json.dumps({'q':query}))
+    q.write(m)
+
+conn = boto.sqs.connect_to_region(
+    "us-east-1",
+    aws_access_key_id=aws_access_key_id,
+    aws_secret_access_key=aws_secret_access_key)
+
+q = Queue(conn, queue_url)
+
+app.run('0.0.0.0', debug=True, port=5000) # Dev env
+
