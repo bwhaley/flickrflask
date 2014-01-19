@@ -1,8 +1,6 @@
 FROM flickr_base
 MAINTAINER Ben Whaley "ben@anki.com"
 
-RUN pip install uwsgi
-
 ### nginx config
 # remove default site
 RUN rm /etc/nginx/sites-enabled/default
