@@ -2,8 +2,8 @@ FROM ubuntu:12.04
 MAINTAINER Ben Whaley "ben@anki.com"
 # Add universe for nginx, uwsgi, supervisor
 RUN sed -i 's/main$/main universe/' /etc/apt/sources.list
-RUN add-apt-repository -y  ppa:nginx/stable
 RUN apt-get install -y -q software-properties-common python-software-properties
+RUN add-apt-repository -y  ppa:nginx/stable
 RUN apt-get -y update
 
 # install needed packages
