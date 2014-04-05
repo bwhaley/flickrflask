@@ -9,7 +9,9 @@ from flask import Flask, render_template, url_for, request, redirect, session, f
 from flickr_api.auth import AuthHandler
 from flickr_api import FlickrError
 import flickr_api
+import boto.sts
 import boto.sqs
+from boto.sqs.connection import SQSConnection
 from boto.sqs.queue import Queue
 from boto.sqs.message import Message
 from sqlalchemy import *
@@ -17,6 +19,7 @@ from sqlalchemy import *
 aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID") or None
 aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY") or None
 queue_url = os.getenv("QUEUE_URL") or None
+region = os.getenv("AWS_REGION") or None
 flickr_key = os.getenv("FLICKR_KEY") or None
 flickr_secret = os.getenv("FLICKR_SECRET") or None
 db_host = db_name = os.getenv("DATABASE_HOST")
@@ -119,10 +122,18 @@ def write_to_sqs(query):
     m.set_body(json.dumps({'q':query}))
     q.write(m)
 
+c = boto.sts.connect_to_region(region, aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key)
+sts = c.assume_role('arn:aws:iam::792379844846:role/FlickrRole', role_session_name="AssumeRoleSession1")
+#conn = boto.sqs.connect_to_region(
+#    region,
+#    aws_access_key_id=aws_access_key_id,
+#    aws_secret_access_key=aws_secret_access_key)
+#conn = boto.sqs.connect_to_region(region)
 conn = boto.sqs.connect_to_region(
-    "us-east-1",
-    aws_access_key_id=aws_access_key_id,
-    aws_secret_access_key=aws_secret_access_key)
+    region,
+    aws_access_key_id=sts.credentials.access_key,
+    aws_secret_access_key=sts.credentials.secret_key,
+    security_token=sts.credentials.session_token)
 
 q = Queue(conn, queue_url)
 
