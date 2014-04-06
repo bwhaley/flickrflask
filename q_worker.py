@@ -1,18 +1,13 @@
-# -*- coding: utf-8 -*- 
-"""
-Description:
-"""
-__copyright__ = 'Anki Inc. 2014'
-
 import os
 import time
 import json
 import boto.sqs
+import boto.sts
 from boto.sqs.message import Message
 from boto.sqs.queue import Queue
 from sqlalchemy import *
 
-region = 'us-east-1'
+region = os.getenv("AWS_REGION") or None
 aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID") or None
 aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY") or None
 queue_url = os.getenv("QUEUE_URL")
@@ -35,10 +30,6 @@ conn = boto.sqs.connect_to_region(
     aws_secret_access_key=sts.credentials.secret_key,
     security_token=sts.credentials.session_token)
 
-#conn = boto.sqs.connect_to_region(
-#    region,
-#    aws_access_key_id=aws_access_key_id,
-#    aws_secret_access_key=aws_secret_access_key)
 q = Queue(conn, queue_url)
 
 engine = create_engine("mysql://{user}:{password}@{host}:3306/{name}".format(
@@ -58,7 +49,7 @@ while True:
     print len(messages)
     for m in messages:
         query = json.loads(m.get_body())
-        engine.execute(queries.insert(), query=query['q'])
+        engine.execute(queries.insert(), query=query['q'], type=query['t'])
         q.delete_message(m)
 
     time.sleep(1)
