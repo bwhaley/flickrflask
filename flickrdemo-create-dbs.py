@@ -14,4 +14,4 @@ app.config['SQLALCHEMY_DATABASE_URI'] = DB
 db = SQLAlchemy(app)
 
 
-db.engine.execute("create table queries ( id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, query VARCHAR(256), created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP )")
+db.engine.execute("create table queries ( id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, query VARCHAR(256), type VARCHAR(10), created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP )")

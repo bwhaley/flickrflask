@@ -7,7 +7,7 @@
         <hr>
         {% for query in queries %}
             <div class="photo">
-                <h4>Query: {{ query['query'] }}, time: {{  query['created_at'] }}</h4>
+                <h4>Query: {{ query['query'] }}, source: {{ query['type'] }}, time: {{  query['created_at'] }}</h4>
             </div>
         {% endfor %}
     {% endif %}
