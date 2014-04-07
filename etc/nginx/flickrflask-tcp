@@ -1,0 +1,14 @@
+server {
+    listen 8080;
+    server_name api.flickrflask.example.com;
+    return       301 http://flickrflask.example.com/api$request_uri;
+}
+server {
+  listen 8080;
+  server_name flickrflask.example.com;
+  keepalive_timeout 5;
+  location / {
+    uwsgi_pass 127.0.0.1:8000;
+    include uwsgi_params;
+  }
+}

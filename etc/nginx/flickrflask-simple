@@ -1,0 +1,9 @@
+server {
+  listen 8080;
+  server_name flickrflask.example.com;
+  keepalive_timeout 5;
+  location / {
+    uwsgi_pass unix:///tmp/flickr.sock;
+    include uwsgi_params;
+  }
+}

@@ -1,0 +1,21 @@
+upstream uwsgi { 
+  server unix:///tmp/flickr.sock;
+}
+
+server {
+  listen 8080;
+  server_name flickrflask.example.com;
+  keepalive_timeout 5;
+  location /static/ {
+    root /opt/flickrflask;
+  }
+  location / {
+    uwsgi_pass uwsgi;
+    include uwsgi_params;
+  }
+}
+server {
+    listen 8080;
+    server_name api.flickrflask.example.com;
+    return       301 http://flickrflask.example.com/api$request_uri;
+}

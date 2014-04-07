@@ -1,22 +1,34 @@
 README
 ======
-Demo project for accessing flickr photos using python, flask, flickr_api. [Under Construction]
+Example Flask application that does the following:
+
+1. Provides a UI and an API for searching flickr for photos
+2. Puts the query term and its source (api or web) in an AWS SQS queue 
+3. `q_worker.py` reads the messages from the queue and puts them in a mysql database
+4. The `/showqueries` endpoint shows a list of the queries, the source, and the time it was inserted to the database
+
+## Install 
+
+First you'll need [Flickr API credentials](https://www.flickr.com/services/api/misc.api_keys.html), full access to an AWS SQS queue, and a database. 
 
 1. `sudo pip install -r requirements.txt`
-2. `cp settings-sample.py to settings.py`
-3. Create a flickr [application][] and add `FLICKR_KEY` & `FLICKR_SECRET` to `settings.py`
+2. Set the env variables defined in `runserver.py`
+ - `AWS_ACCESS_KEY_ID`
+ - `AWS_SECRET_ACCESS_KEY`
+ - `QUEUE_URL`
+ - `AWS_REGION`
+ - `FLICKR_KEY`
+ - `FLICKR_SECRET`
+ - `DATABASE_HOST`
+ - `DATABASE_USERNAME`
+ - `DATABASE_PASSWORD`
+ - `DATABASE_NAME`
 4. `python runserver.py`
-5. Visit http://localhost:3333
+5. Visit http://localhost:5000
 
-Use only following endpoints:
-=====
+## The following endpoints exist:
 1. /
 2. /search/[term]
 3. /search/[term]/[maximum]
+4. /api/search/[term]
 
-Features
-=======
-
-1. Search Public photos with limit
-
-[application]: http://www.flickr.com/services/apps/create/ 

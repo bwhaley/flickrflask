@@ -1,12 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-    <b> Welcome to Flickr Demo </b> <br/>
-    <p>
-        <b> /search/[term] </b> => search photos for particular term, displays 10 results <br/>
-        <b> E.G: /search/tamil </b> <br/>
-    </p>
-    <p>
-        <b> /search/[term]/[maximum] </b> => search photos for particular term, displays [maxmium] results </br>
-        <b> E.G: /search/tamil/20 </b> <br/>
-    </p>
+  <h1>Welcome to the Flickrflask Example app </h1> <br/>
+  <div class="well well-large">
+    <h2>Available URLs</h2>  
+    <code>/search/[term]</code> search photos for particular term, displays 10 results <br>
+    <code>/search/[term]/[maximum]</code> search photos for [term], displays [maximum] results <br>
+    <code>/api/search/[term]</code> search photos for [term], displays 10 results serialized as JSON<br>
+    <h2>Examples</h2>
+    <code><a href="/search/San%20Francisco/3">/search/San%20Francisco/3</a></code> search for "San Francisco" and return 3 results <br>
+    <code><a href="/api/search/San%20Francisco">/api/search/San%20Francisco</a></code> search for "San Francisco" and return json
+  </div>
 {% endblock %}
