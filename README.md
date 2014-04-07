@@ -23,8 +23,10 @@ First you'll need [Flickr API credentials](https://www.flickr.com/services/api/m
  - `DATABASE_USERNAME`
  - `DATABASE_PASSWORD`
  - `DATABASE_NAME`
-4. `python runserver.py`
-5. Visit http://localhost:5000
+4. `python create_db.py` Set up the database
+5. `python q_worker.py >/dev/null &` Run the queue reader in the background. The output is the number of message fetched.
+7. `python runserver.py` Start the flask app
+6. Visit http://localhost:5000
 
 ## The following endpoints exist:
 1. /
