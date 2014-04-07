@@ -1,0 +1,41 @@
+upstream sentiment {
+  server api-sentiment.3scale.net;
+}
+upstream uwsgi { 
+  server unix:///tmp/flickr.sock;
+}
+
+server {
+    listen 8080;
+    server_name api.flickrflask.example.com;
+    return       301 http://flickrflask.example.com/api$request_uri;
+}
+server {
+  listen 8080;
+  server_name flickrflask.example.com;
+  keepalive_timeout 5;
+  location /static/ {
+    root /opt/flickrflask;
+  }
+
+  location /hilua {
+      content_by_lua '
+        local name = ngx.var.arg_name or "Anonymous"
+        ngx.say("Hi, ", name, "!")
+      ';
+  }
+
+  location ~ /sentiment/(.*)$ {
+    content_by_lua_file /opt/flickrflask/etc/lua/read_sentiment.lua;
+  }
+
+  location ~ /v1/word/(.*) {
+    proxy_pass http://sentiment;
+  }
+
+  location / {
+    access_by_lua_file /opt/flickrflask/etc/lua/update_sentiment.lua;
+    uwsgi_pass uwsgi;
+    include uwsgi_params;
+  }
+}

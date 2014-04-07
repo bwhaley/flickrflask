@@ -6,6 +6,15 @@ server {
   listen 8080;
   server_name flickrflask.example.com;
   keepalive_timeout 5;
+
+  access_log /var/log/nginx/flickrflask_access.log;
+  error_log /var/log/nginx/flickrflask_error.log error;
+
+  location /nginx_status {
+    stub_status on;
+    access_log   off;
+    allow all;
+  }
   location /static/ {
     root /opt/flickrflask;
   }
