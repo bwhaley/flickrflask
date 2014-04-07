@@ -17,18 +17,11 @@ db_username = db_name = os.getenv("DATABASE_USERNAME")
 db_password = db_name = os.getenv("DATABASE_PASSWORD")
 db_name = os.getenv("DATABASE_NAME")
 
-c = boto.sts.connect_to_region(region, aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key)
-sts = c.assume_role('arn:aws:iam::792379844846:role/FlickrRole', role_session_name="AssumeRoleSession1")
-#conn = boto.sqs.connect_to_region(
-#    region,
-#    aws_access_key_id=aws_access_key_id,
-#    aws_secret_access_key=aws_secret_access_key)
-#conn = boto.sqs.connect_to_region(region)
 conn = boto.sqs.connect_to_region(
     region,
-    aws_access_key_id=sts.credentials.access_key,
-    aws_secret_access_key=sts.credentials.secret_key,
-    security_token=sts.credentials.session_token)
+    aws_access_key_id=aws_access_key_id,
+    aws_secret_access_key=aws_secret_access_key)
+conn = boto.sqs.connect_to_region(region)
 
 q = Queue(conn, queue_url)
 
