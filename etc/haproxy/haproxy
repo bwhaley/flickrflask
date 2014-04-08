@@ -1,0 +1,28 @@
+global
+    log /dev/log local0 notice
+    maxconn 2000
+    user haproxy
+    group haproxy
+
+defaults
+    log     global
+    mode    http
+    option  httplog
+    option  dontlognull
+    retries 3
+    option redispatch
+    timeout connect  5000
+    timeout client  10000
+    timeout server  10000
+
+listen flickrflask 0.0.0.0:80
+    mode http
+    stats enable
+    stats uri /haproxy?stats
+    stats realm Private
+    stats auth ben:ben
+    balance roundrobin
+    option httpclose
+    option forwardfor
+    server nginx8080 127.0.0.1:8080 check
+    server nginx8081 127.0.0.1:8081 check
