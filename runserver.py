@@ -23,8 +23,8 @@ region = os.getenv("AWS_REGION")
 flickr_key = os.getenv("FLICKR_KEY") 
 flickr_secret = os.getenv("FLICKR_SECRET") 
 db_host = db_name = os.getenv("DATABASE_HOST")
-db_username = db_name = os.getenv("DATABASE_USERNAME")
-db_password = db_name = os.getenv("DATABASE_PASSWORD")
+db_username = db_name = os.getenv("READER_USERNAME")
+db_password = db_name = os.getenv("READER_PASSWORD")
 db_name = os.getenv("DATABASE_NAME")
 
 secrets = {'api_key': flickr_key, 'api_secret': flickr_secret}

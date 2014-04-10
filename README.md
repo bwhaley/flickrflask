@@ -20,9 +20,13 @@ First you'll need [Flickr API credentials](https://www.flickr.com/services/api/m
  - `FLICKR_KEY`
  - `FLICKR_SECRET`
  - `DATABASE_HOST`
+ - `DATABASE_NAME`
  - `DATABASE_USERNAME`
  - `DATABASE_PASSWORD`
- - `DATABASE_NAME`
+ - `WRITER_USERNAME`
+ - `WRITER_PASSWORD`
+ - `READER_USERNAME`
+ - `READER_PASSWORD`
 4. `python create_db.py` Set up the database
 5. `python q_worker.py >/dev/null &` Run the queue reader in the background. The output is the number of message fetched.
 7. `python runserver.py` Start the flask app

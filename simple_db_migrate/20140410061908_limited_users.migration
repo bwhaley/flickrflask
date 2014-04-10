@@ -1,0 +1,25 @@
+#-*- coding:utf-8 -*-
+writer_username = os.getenv("WRITER_USERNAME")
+writer_password = os.getenv("WRITER_PASSWORD")
+reader_username = os.getenv("READER_USERNAME")
+reader_password = os.getenv("READER_PASSWORD")
+database_name = os.getenv("DATABASE_NAME")
+
+SQL_UP = u"""
+GRANT INSERT ON {db}.queries TO '{writer_user}'@'%' IDENTIFIED BY '{writer_pass}';
+GRANT SELECT ON {db}.* TO '{reader_user}'@'%' IDENTIFIED BY '{reader_pass}';
+""".format(
+    db=database_name,
+    writer_user=writer_username,
+    writer_pass=writer_password,
+    reader_user=reader_username,
+    reader_pass=reader_password
+)
+
+SQL_DOWN = u"""
+DROP USER '{writer_user}'@'%';
+DROP USER '{reader_user}'@'%';
+""".format(
+    writer_user=writer_username,
+    reader_user=reader_username
+)

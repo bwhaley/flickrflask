@@ -13,8 +13,8 @@ aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY") or None
 queue_url = os.getenv("QUEUE_URL")
 
 db_host = db_name = os.getenv("DATABASE_HOST")
-db_username = db_name = os.getenv("DATABASE_USERNAME")
-db_password = db_name = os.getenv("DATABASE_PASSWORD")
+db_username = db_name = os.getenv("WRITER_USERNAME")
+db_password = db_name = os.getenv("WRITER_PASSWORD")
 db_name = os.getenv("DATABASE_NAME")
 
 conn = boto.sqs.connect_to_region(
