@@ -29,8 +29,10 @@ First you'll need [Flickr API credentials](https://www.flickr.com/services/api/m
 ## Additional features & info
 The etc/ directory contains configurations for apache httpd, nginx, haproxy, uwsgi, and other components of a web app stack to demonstrate features of each. The intent is to show how to operate a more complex web application using a simple app as an example.
 
-### Environment Variables
 
+This repository is referenced heavily in the Linux Web Operations LiveLessons video series.
+
+### Environment Variables
 
 |Variable                        | Description
 --------------------------------|-----------------
@@ -49,5 +51,4 @@ The etc/ directory contains configurations for apache httpd, nginx, haproxy, uws
 |`READER_USERNAME`               | A username to read from the DB, used by the query interface
 |`READER_PASSWORD`               | A password to read from the DB, used by the query interface
 
-This repository is reference in the Linux Web Operations LiveLessons video series.
 
