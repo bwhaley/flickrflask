@@ -1,0 +1,12 @@
+SQL_UP = u"""
+create table `queries` ( 
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+  query VARCHAR(256), 
+  type VARCHAR(10), 
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+"""
+
+SQL_DOWN = u"""
+DROP TABLE queries;
+"""
