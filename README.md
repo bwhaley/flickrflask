@@ -17,7 +17,7 @@ First you'll need [Flickr API credentials](https://www.flickr.com/services/api/m
 3. `db-migrate --config=simple_db_migrate/simple_db_migrate.conf`
 4. `python q_worker.py >/dev/null &` Run the queue reader in the background. The output is the number of message fetched.
 5. `python runserver.py` Start the flask app
-6. Visit http://localhost:5000
+6. Visit `http://localhost:5000`
 
 ## The following endpoints exist:
 1. `/` The landing page
