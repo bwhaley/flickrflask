@@ -14,7 +14,9 @@ First you'll need [Flickr API credentials](https://www.flickr.com/services/api/m
 
 1. `sudo pip install -r requirements.txt`
 2. Set the env variables defined in `runserver.py`
+
 Variable                        | Description
+--------------------------------------------------
 `AWS_ACCESS_KEY_ID`             | AWS Access Key
 `AWS_SECRET_ACCESS_KEY`         | AWS Access Key
 `AWS_REGION`                    | AWS region (us-east-1, us-west-2, etc)
