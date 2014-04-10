@@ -7,7 +7,7 @@ database_name = os.getenv("DATABASE_NAME")
 
 SQL_UP = u"""
 GRANT INSERT ON {db}.queries TO '{writer_user}'@'%' IDENTIFIED BY '{writer_pass}';
-GRANT SELECT ON {db}.* TO '{reader_user}'@'%' IDENTIFIED BY '{reader_pass}';
+GRANT SELECT ON {db}.queries TO '{reader_user}'@'%' IDENTIFIED BY '{reader_pass}';
 """.format(
     db=database_name,
     writer_user=writer_username,
