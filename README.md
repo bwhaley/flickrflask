@@ -13,24 +13,7 @@ Simple Flask application that does the following:
 First you'll need [Flickr API credentials](https://www.flickr.com/services/api/misc.api_keys.html), full access to an AWS SQS queue, and a database. 
 
 1. `sudo pip install -r requirements.txt`
-2. Set the env variables defined in `runserver.py`
-
-Variable                        | Description
---------------------------------------------------
-`AWS_ACCESS_KEY_ID`             | AWS Access Key
-`AWS_SECRET_ACCESS_KEY`         | AWS Access Key
-`AWS_REGION`                    | AWS region (us-east-1, us-west-2, etc)
-`QUEUE_URL`                     | SQS Queue URL (https://...)
-`FLICKR_KEY`                    | Flickr API Key
-`FLICKR_SECRET`                 | Flickr API Secret
-`DATABASE_HOST`                 | Database hostname or IP address
-`DATABASE_NAME`                 | Name of database (flickrflask is a good choice)
-`DATABASE_USERNAME`             | Root username for the db. Only used for DB setup
-`DATABASE_PASSWORD`             | Root password, also only used for DB setup
-`WRITER_USERNAME`               | A username to write to the DB, used by the q_worker
-`WRITER_PASSWORD`               | A password to write to the DB, used by the q_worker
-`READER_USERNAME`               | A username to read from the DB, used by the query interface
-`READER_PASSWORD`               | A password to read from the DB, used by the query interface
+2. Set the env variables (see list below)
 3. `db-migrate --config=simple_db_migrate/simple_db_migrate.conf
 4. `python q_worker.py >/dev/null &` Run the queue reader in the background. The output is the number of message fetched.
 5. `python runserver.py` Start the flask app
@@ -46,6 +29,25 @@ Variable                        | Description
 ## Additional features & info
 The etc/ directory contains configurations for apache httpd, nginx, haproxy, uwsgi, and other components of a web app stack to demonstrate features of each. The intent is to show how to operate a more complex web application using a simple app as an example.
 
+### Environment Variables
+
+
+|Variable                        | Description
+--------------------------------|-----------------
+|`AWS_ACCESS_KEY_ID`             | AWS Access Key
+|`AWS_SECRET_ACCESS_KEY`         | AWS Access Key
+|`AWS_REGION`                    | AWS region (us-east-1, us-west-2, etc)
+|`QUEUE_URL`                     | SQS Queue URL (https://...)
+|`FLICKR_KEY`                    | Flickr API Key
+|`FLICKR_SECRET`                 | Flickr API Secret
+|`DATABASE_HOST`                 | Database hostname or IP address
+|`DATABASE_NAME`                 | Name of database (flickrflask is a good choice)
+|`DATABASE_USERNAME`             | Root username for the db. Only used for DB setup
+|`DATABASE_PASSWORD`             | Root password, also only used for DB setup
+|`WRITER_USERNAME`               | A username to write to the DB, used by the q_worker
+|`WRITER_PASSWORD`               | A password to write to the DB, used by the q_worker
+|`READER_USERNAME`               | A username to read from the DB, used by the query interface
+|`READER_PASSWORD`               | A password to read from the DB, used by the query interface
 
 This repository is reference in the Linux Web Operations LiveLessons video series.
 
