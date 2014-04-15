@@ -10,4 +10,6 @@ boto==2.23.0
 flickr-api==0.4
 itsdangerous==0.23
 oauth==1.0.1
+simple-db-migrate==2.0.0
+uWSGI==2.0.3
 wsgiref==0.1.2
