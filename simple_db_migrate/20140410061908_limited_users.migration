@@ -1,9 +1,14 @@
 #-*- coding:utf-8 -*-
-writer_username = os.getenv("WRITER_USERNAME")
-writer_password = os.getenv("WRITER_PASSWORD")
-reader_username = os.getenv("READER_USERNAME")
-reader_password = os.getenv("READER_PASSWORD")
-database_name = os.getenv("DATABASE_NAME")
+try:
+    writer_username = os.environ["WRITER_USERNAME"]
+    writer_password = os.environ["WRITER_PASSWORD"]
+    reader_username = os.environ["READER_USERNAME"]
+    reader_password = os.environ["READER_PASSWORD"]
+    database_name = os.environ["DATABASE_NAME"]
+except KeyError, e:
+    print "Set the environment variable %s" % e
+    sys.exit(1)
+
 
 SQL_UP = u"""
 GRANT INSERT ON {db}.queries TO '{writer_user}'@'%' IDENTIFIED BY '{writer_pass}';
