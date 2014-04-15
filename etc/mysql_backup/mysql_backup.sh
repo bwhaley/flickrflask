@@ -1,6 +1,8 @@
 #!/bin/bash -x
-
-## Data backup to S3
+## Copy files to S3 
+## TODO: 
+##   - Encrypt files
+##   - Split files > 5GB (required for S3)
 
 ## Vars
 tdate=$(date '+%Y%m%d%H%M')
