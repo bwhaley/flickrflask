@@ -1,0 +1,21 @@
+;
+; BIND reverse data file for local loopback interface
+;
+$TTL     300
+@     IN     SOA     dns1.example.com. root.example.com. (
+                     6          ; Serial
+                604800          ; Refresh
+                 86400          ; Retry
+               2419200          ; Expire
+                604800 )     ; Negative Cache TTL
+;
+10.in-addr.arpa.     IN     NS     dns1.example.com.
+82.0.0 IN     PTR     bastion.example.com.
+65.1.0 IN     PTR     web1.example.com.
+115.1.0 IN     PTR     web2.example.com.
+32.1.0 IN     PTR     db1.example.com.
+66.1.0 IN     PTR     db2.example.com.
+101.0.0 IN     PTR     lb1.example.com.
+25.1.0 IN     PTR     dns1.example.com.
+106.1.0 IN     PTR     monitoring.example.com.
+
