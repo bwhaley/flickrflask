@@ -12,7 +12,8 @@ Simple Flask application that does the following:
 
 First you'll need [Flickr API credentials](https://www.flickr.com/services/api/misc.api_keys.html), full access to an AWS SQS queue, and a database. 
 
-1. `sudo pip install -r requirements.txt`
+0. If you're going to use apache + mod\_wsgi, the `.wsgi` file in the repository root expects it to be in `/opt/venv/bin/`
+1. `sudo pip install -r requirements.txt` Do this in a virtualenv or for system python, but make sure the app server knows about it
 2. Set the env variables (see list below)
 3. `db-migrate --config=simple_db_migrate/simple_db_migrate.conf`
 4. `python q_worker.py >/dev/null &` Run the queue reader in the background. The output is the number of message fetched.
