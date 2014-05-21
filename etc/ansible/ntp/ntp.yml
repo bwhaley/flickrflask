@@ -1,0 +1,12 @@
+- hosts: all
+  vars:
+    - ntp_servers: [ntp1, ntp2, ntp3]
+    - package: ntp
+  tasks:
+    - name: Install NTP on Debian-like systems
+      apt: name={{package}} state=installed update_cache=yes
+      when: ansible_os_family == 'Debian'
+
+    - name: Set up ntp.conf
+      template: src=ntp.conf.j2 dest=/etc/ntp.conf
+

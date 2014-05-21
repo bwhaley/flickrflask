@@ -1,0 +1,10 @@
+driftfile /var/lib/ntp/ntp.drift
+
+statistics loopstats peerstats clockstats
+filegen loopstats file loopstats type day enable
+filegen peerstats file peerstats type day enable
+filegen clockstats file clockstats type day enable
+
+{% for i in ntp_servers %}
+server {{ i }}
+{% endfor %}
