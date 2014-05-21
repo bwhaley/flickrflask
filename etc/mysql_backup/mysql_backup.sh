@@ -3,6 +3,7 @@
 ## TODO: 
 ##   - Encrypt files
 ##   - Split files > 5GB (required for S3)
+##   - Add restore steps
 
 ## Vars
 tdate=$(date '+%Y%m%d%H%M')
