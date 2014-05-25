@@ -1,0 +1,4 @@
+carbon_port: 2003
+carbon_host: monitoring
+carbon_prefix: flickrflask.
+

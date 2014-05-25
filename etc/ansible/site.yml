@@ -1,0 +1,21 @@
+- hosts: all
+  sudo: yes
+  roles:
+    - collectd
+    - users
+  tasks:
+   - lineinfile: dest=/etc/sudoers state=present regexp='^%admin ALL\=' line='%admin ALL=(ALL) NOPASSWD:ALL' validate='visudo -cf %s'
+- hosts: webservers
+  sudo: yes
+  roles: 
+    #- apache
+    #- flickrflask
+    #- users
+- hosts: dbservers
+  sudo: yes
+  roles:
+    - mysql
+- hosts: dnsservers
+  sudo: yes
+  roles:
+    #- bind
