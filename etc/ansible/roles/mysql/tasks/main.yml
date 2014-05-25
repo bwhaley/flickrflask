@@ -1,0 +1,15 @@
+- name: Install pip
+  apt: name=python-pip update_cache=yes cache_valid_time=86400 
+
+- name: Install AWS CLI tools
+  pip: name=awscli
+  
+- name: Copy backup script
+  copy: src=mysql_backup.sh dest=/usr/local/bin/mysql_backup.sh
+
+- name: Set up environment
+  template: src=mysql_backup_env.j2 dest=/usr/local/etc/mysql_backup_env
+
+- name: Periodic job for backups
+  cron: name="MySQL Backups"  minute="0" hour="1" job="bash -c 'source /usr/local/etc/mysql_backup_env && sh /usr/local/bin/mysql_backup.sh'"
+

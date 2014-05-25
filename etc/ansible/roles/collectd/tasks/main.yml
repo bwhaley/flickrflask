@@ -1,0 +1,7 @@
+- name: Install collectd
+  apt: name=collectd update_cache=yes cache_valid_time=86400
+- name: Configure collectd
+  template: src=collectd.conf.j2 dest=/etc/collectd.conf
+  notify:
+    - Restart collectd
+- service: name=collectd state=running enabled=yes
