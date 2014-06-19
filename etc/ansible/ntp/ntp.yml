@@ -1,7 +1,12 @@
 - hosts: all
+  sudo: yes
   vars:
-    - ntp_servers: [ntp1, ntp2, ntp3]
+    - ntp_servers:
+        - 0.ubuntu.pool.ntp.org
+        - 1.ubuntu.pool.ntp.org
+        - 2.ubuntu.pool.ntp.org
     - package: ntp
+
   tasks:
     - name: Install NTP on Debian-like systems
       apt: name={{package}} state=installed update_cache=yes
@@ -9,4 +14,9 @@
 
     - name: Set up ntp.conf
       template: src=ntp.conf.j2 dest=/etc/ntp.conf
+      notify:
+        - Restart NTP
 
+  handlers:
+    - name: Restart NTP
+      service: name=ntp state=restarted

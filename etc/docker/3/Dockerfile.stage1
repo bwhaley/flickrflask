@@ -19,3 +19,15 @@ Add requirements.txt /tmp/requirements.txt
 # Install python dependencies
 RUN /usr/local/bin/pip install -r /tmp/requirements.txt
 
+### nginx config
+# remove default site
+RUN rm /etc/nginx/sites-enabled/default
+# disable daemon - supervisord will run nginx
+RUN sed -i '1i daemon off;' /etc/nginx/nginx.conf
+# copy the nginx config
+ADD ./etc/nginx/flickrflask-final.conf /etc/nginx/sites-enabled/flickrflask
+
+# copy the supervisor config
+ADD ./etc/supervisor/flickr.conf /etc/supervisor/conf.d/flickr.conf
+ADD ./etc/supervisor/nginx.conf /etc/supervisor/conf.d/nginx.conf
+
