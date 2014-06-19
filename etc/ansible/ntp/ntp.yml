@@ -1,7 +1,7 @@
 - hosts: all
   sudo: yes
   vars:
-    - ntp_servers:
+    - ntp_servers: 
         - 0.ubuntu.pool.ntp.org
         - 1.ubuntu.pool.ntp.org
         - 2.ubuntu.pool.ntp.org
