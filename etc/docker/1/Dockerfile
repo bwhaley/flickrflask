@@ -5,8 +5,8 @@ MAINTAINER Ben Whaley "bwhaley@gmail.com"
 # Patch the system
 RUN apt-get -y update 
 
-# Install the pip python package manager 
-RUN easy_install pip
+# Install pip
+RUN apt-get -y install python-pip gcc python-dev
 
 # Install uwsgi python application server
 RUN pip install uwsgi
@@ -15,7 +15,7 @@ RUN pip install uwsgi
 ADD requirements.txt /tmp/requirements.txt
 
 # Install python dependencies
-RUN /usr/local/bin/pip install -r /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt
 
 # Clean up dependency file
 RUN rm /tmp/requirements.txt
