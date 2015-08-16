@@ -1,5 +1,7 @@
 README
 ======
+This repository is referenced heavily in the [Linux Web Operations LiveLessons](http://www.informit.com/store/linux-web-operations-livelessons-video-training-downloadable-9780133927627) video series.
+
 Simple Flask application that does the following:
 
 1. Provides a UI and an API for searching flickr for photos
@@ -31,7 +33,6 @@ First you'll need [Flickr API credentials](https://www.flickr.com/services/api/m
 The etc/ directory contains configurations for apache httpd, nginx, haproxy, uwsgi, and other components of a web app stack to demonstrate features of each. The intent is to show how to operate a more complex web application using a simple app as an example.
 
 
-This repository is referenced heavily in the Linux Web Operations LiveLessons video series.
 
 ### Environment Variables
 
